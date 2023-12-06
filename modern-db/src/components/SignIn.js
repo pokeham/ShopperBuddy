@@ -1,0 +1,112 @@
+import { Form, FormControl, Button, InputGroup} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import React, { useState, useEffect } from 'react';
+import { auth } from '../database/firebase';
+import '../css/SignIn.css';
+import{ createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth"
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+
+
+
+function SignIn() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showErrorEmail, setShowErrorEmail] = useState(false);
+    const [showErrorPassword, setShowErrorPassword] = useState(false);
+    const [errorEmailMessage, setErrorEmailMessage] = useState('');
+    const [errorPasswordMessage, setErrorPasswordMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+    const handleAuth = async () => {
+        try {
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+        } catch (signInError) {
+            if (signInError.code === 'auth/invalid-credential') {
+
+                try {
+                    const newUserCredentials = await createUserWithEmailAndPassword(auth, email, password);
+                } catch (signUpError) {
+                    console.error('sing up error: ' + signUpError.message);
+                    loginErrorHandling(signUpError.message);
+                }
+            } else {
+                console.error('log in error: ' + signInError.message);
+                loginErrorHandling(signInError.message);
+            }
+        }
+    }
+    const loginErrorHandling = (errorString) => {
+        if (errorString === 'Firebase: Error (auth/invalid-email).') {
+            setShowErrorEmail(true);
+            setErrorEmailMessage("Invalid email format")
+        } else if (errorString === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+            setShowErrorPassword(true);
+            setErrorPasswordMessage("Password must be at least 6 characters ")
+        } else if (errorString === 'Firebase: Error (auth/email-already-in-use).') {
+            setShowErrorPassword(true);
+            setErrorPasswordMessage("Email is already in use, if this is your account the password is incorrect")
+        } else if (errorString === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).') {
+            setShowErrorEmail(true);
+            setErrorEmailMessage("Account temporarily disabled due to too many login attempts")
+        }
+
+    }
+    const tryLogin = () => {
+        if (email !== '' && password !== '') {
+            setShowErrorPassword(false);
+            setShowErrorEmail(false);
+            handleAuth().then(r => r);
+        }
+        if (email === '') {
+            setShowErrorEmail(true);
+            setErrorEmailMessage("Missing email");
+        } else {
+            setShowErrorEmail(false);
+        }
+        if (password === '') {
+            setShowErrorPassword(true);
+            setErrorPasswordMessage("Missing password");
+        } else {
+            setShowErrorPassword(false);
+        }
+    }
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        tryLogin();
+
+    };
+    return (
+        <div className={'main-div'}>
+            <Container fluid className={'main-container'}>
+                <Row className={'top-row'}>
+
+                </Row>
+                <Row className={'middle-row'}>
+                    <Col xs = {3}>
+                        hi
+                    </Col>
+                    <Col xs = {6}>
+                        hi
+                    </Col>
+
+                </Row>
+                <Row className={'bottom-row'}>
+
+                </Row>
+            </Container>
+        </div>
+    )
+}
+export default SignIn;
