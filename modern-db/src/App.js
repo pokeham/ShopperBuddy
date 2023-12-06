@@ -6,7 +6,11 @@ import {
   Link
 } from 'react-router-dom';
 import SignInPage from "./pages/SignInPage";
+
+import {useReadCypher, useWriteCypher} from "use-neo4j";
 function App() {
+    const { loading, error, first, records } = useReadCypher('MATCH (n) RETURN count(n) AS count ');
+
   return (
       <Router>
         <div>

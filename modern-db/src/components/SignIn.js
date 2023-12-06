@@ -6,10 +6,12 @@ import { auth } from '../database/firebase';
 import '../css/SignIn.css';
 import{ createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth"
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import  {useNavigate}  from 'react-router-dom';
 
 
 
 function SignIn() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showErrorEmail, setShowErrorEmail] = useState(false);
@@ -23,11 +25,13 @@ function SignIn() {
     const handleAuth = async () => {
         try {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+            navigate('/User');
         } catch (signInError) {
             if (signInError.code === 'auth/invalid-credential') {
 
                 try {
                     const newUserCredentials = await createUserWithEmailAndPassword(auth, email, password);
+                    navigate('/User');
                 } catch (signUpError) {
                     console.error('sing up error: ' + signUpError.message);
                     loginErrorHandling(signUpError.message);

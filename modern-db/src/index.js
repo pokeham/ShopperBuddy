@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Neo4jProvider,createDriver} from "use-neo4j";
-const driver = createDriver('neo4j','localhost',7687,'admin','password')
+
+const neo4j = require('neo4j-driver');
+const driver = neo4j.driver('neo4j+s://69b9f662.databases.neo4j.io',neo4j.auth.basic('neo4j','XnYgkn_t-t4YBD4-K-vf_y0Ws49fm1fIitxeXGASkvY'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
