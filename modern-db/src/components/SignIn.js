@@ -1,7 +1,6 @@
 import { Form, FormControl, Button, InputGroup} from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { auth } from '../database/firebase';
 import '../css/SignIn.css';
@@ -95,10 +94,79 @@ function SignIn() {
                 </Row>
                 <Row className={'middle-row'}>
                     <Col xs = {3}>
-                        hi
+
                     </Col>
-                    <Col xs = {6}>
-                        hi
+                    <Col xs = {6} className={'content-col'}>
+                        <h1 className={'welcome-header'}>
+                            WELCOME
+                        </h1>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Label id = "email" className="form-header">Enter your email:</Form.Label>
+                            <FormControl
+                                type="text"
+                                placeholder="example@email.com"
+                                value={email}
+                                onChange={handleEmailChange}
+                                style={{
+                                    marginLeft:'25%',
+                                    width: `50%`,
+                                    marginBottom: showErrorEmail ? '5px' : '20px',
+                                    ...(showErrorEmail && {
+                                        outline: '2px solid #ff3333',
+                                        boxShadow: '0 0 10px rgba(251, 37, 118, 0.5)',
+                                    }),
+                                }}
+                            />{showErrorEmail && <div className={"error-message"} style={{ alignSelf: 'flex-start', flexWrap: 'wrap' }} >{errorEmailMessage}</div>}
+                        </Form>
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Label if = "password" className="form-header">Enter password:</Form.Label>
+                            <div className="password-container">
+                                <InputGroup style={{
+                                    marginLeft:'25%',
+                                    width: `50%`,
+                                    marginBottom: showErrorPassword ? '5px' : '40px',
+                                    ...(showErrorPassword && {
+                                        outline: '2px solid #ff3333',
+                                        boxShadow: '0 0 10px rgba(251, 37, 118, 0.5)',
+                                    }),
+                                }}>
+                                    <Form.Control
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={handlePasswordChange}
+
+
+                                    />
+
+                                    <Button
+                                        variant="outline-secondary"
+                                        onClick={togglePasswordVisibility}
+                                        className="submit-button"
+                                    >
+                                        {showPassword ? <BsEyeSlash /> : <BsEye />}
+                                    </Button>
+
+                                </InputGroup>
+                            </div>
+                            {showErrorPassword && (
+                                <div className="error-message-container">
+                                    <div className="error-message">{errorPasswordMessage}</div>
+                                </div>
+                            )}
+                        </Form>
+                            <Button
+                                className={'login-button'}
+                                variant="outline-success"
+                                type="submit"
+                                onClick={handleFormSubmit}
+                            >
+                                Login / Sign Up
+                            </Button>
+
+                    </Col>
+                    <Col xs = {3}>
+
                     </Col>
 
                 </Row>
