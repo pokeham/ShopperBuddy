@@ -1,24 +1,30 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import SignInPage from "./pages/SignInPage";
 
-import {useReadCypher, useWriteCypher} from "use-neo4j";
-function App() {
-    const { loading, error, first, records } = useReadCypher('MATCH (n) RETURN count(n) AS count ');
 
-  return (
-      <Router>
-        <div>
+
+import {useReadCypher, useWriteCypher} from "use-neo4j";
+import HomePage from "./pages/HomePage";
+import ProtectedRoute from "./components/protectedRoute";
+function App() {
+
+    const [loading, setLoading] = useState(true);
+    const[isAuthenticated, setIsAuthenticated] = useState(false)
+
+
+
+    return (
+        <Router>
             <Routes>
-                <Route path="/" element={<SignInPage />} />
+                <Route path="/login" element={<SignInPage />} />
+                <Route path="/user" element={
+                    <ProtectedRoute>
+                        <HomePage />
+                    </ProtectedRoute>
+                } />
             </Routes>
-        </div>
-      </Router>
+        </Router>
   );
 }
 
