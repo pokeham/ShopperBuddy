@@ -81,13 +81,13 @@ function Home(){
                 <p key={index}>
                     Name: {customer.name}
                     Customer Name: {customer.customerName}
-                    Numeric Similarity: {customer.numericSimilarity.low} {/* Assuming numericSimilarity is an object */}
-                    Store Type Similarity: {customer.storeTypeSimilarity.low} {/* Modify accordingly */}
+                    Numeric Similarity: {customer.numericSimilarity.toFixed(2)} {/* Assuming numericSimilarity is an object */}
+                    Store Type Similarity: {customer.storeTypeSimilarity.toFixed(2)} {/* Modify accordingly */}
                     Category Similarity: {customer.categorySimilarity.low}
                     Union Size: {customer.unionSize.low}
                     Intersection Size: {customer.intersectionSize.low}
                     Transaction Similarity: {customer.transactionSimilarity.low}
-                    Total Score: {customer.totalScore.low}
+                    Total Score: {customer.totalScore.toFixed(2)}
                 </p>
             ))}
         </div>
