@@ -8,6 +8,7 @@ import{ createUserWithEmailAndPassword,signInWithEmailAndPassword } from "fireba
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import {Navigate, useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 
 
 
@@ -50,6 +51,7 @@ function SignIn() {
 
       console.log('in the login function');
             Cookies.set('token', data.token, { expires: 1 }); // Expires in 1 day
+
             navigate('/user');
         }
 

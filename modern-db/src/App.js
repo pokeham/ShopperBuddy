@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignInPage";
 import {useReadCypher, useWriteCypher} from "use-neo4j";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/protectedRoute";
+import ChatFunctions from "./pages/chatFunctions";
 function App() {
 
     return (
@@ -15,6 +16,11 @@ function App() {
                 <Route path="/user" element={
                     <ProtectedRoute>
                         <HomePage />
+                    </ProtectedRoute>
+                } />
+                <Route path="/chat" element={
+                    <ProtectedRoute>
+                        <ChatFunctions />
                     </ProtectedRoute>
                 } />
 
