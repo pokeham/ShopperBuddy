@@ -6,7 +6,7 @@ const SignInPage = () => {
     return (
         <div style={{backgroundColor: '#000000',height: "100%",overflowY: "hidden"}}>
             <SignIn />
-        </div>
+        </div> 
     )
 };
 

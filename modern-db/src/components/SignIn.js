@@ -25,13 +25,13 @@ function SignIn() {
     const handleAuth = async () => {
         try {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-            navigate('/User');
+            navigate('/Home');
         } catch (signInError) {
             if (signInError.code === 'auth/invalid-credential') {
 
                 try {
                     const newUserCredentials = await createUserWithEmailAndPassword(auth, email, password);
-                    navigate('/User');
+                    navigate('/Home');
                 } catch (signUpError) {
                     console.error('sing up error: ' + signUpError.message);
                     loginErrorHandling(signUpError.message);
