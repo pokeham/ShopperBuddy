@@ -3,7 +3,9 @@
 .main-div-chat-box{
     margin-top: 10px;
     height: 20vh;
+    max-height: 20vh;
     font-family: "Plus Jakarta Sans", sans-serif;
+    overflow-y:hidden;
 
 }
 
@@ -32,7 +34,7 @@
     border-radius: 2vh;
     position: absolute;
     top: inherit;
-    right: 5vw;
+    right: 2vw;
     width: 60vw;
     height: inherit;
     background-color: lightsteelblue;
@@ -43,7 +45,7 @@
     border-radius: 2vh;
     position: absolute;
     top: inherit;
-    left: 10vw;
+    left: 2vw;
     width: 60vw;
     height: inherit;
     background-color: lightgray;
