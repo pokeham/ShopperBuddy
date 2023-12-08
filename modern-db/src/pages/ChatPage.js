@@ -2,17 +2,17 @@
 import React from 'react';
 
 import NavBar from "../components/NavBar.js"
-import Home from "../components/Home.js"
+import Chat from "../components/Chat.js"
 import { Container, Row, Col } from 'react-bootstrap';
 
-const HomePage = () => {
+const ChatPage = () => {
     return (
         <div style={{backgroundColor: 'white',height: "100%",display:"flex"}}>
             <NavBar/>
-            <Home />
+            <Chat />
         </div>
     )
 };
 
-export default HomePage;
+export default ChatPage;
 

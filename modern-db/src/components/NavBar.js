@@ -64,17 +64,17 @@ function NavBar(){
                 <Dropdown.Menu className="dropdown-menu">
                     <Dropdown.Item className = "item">Name </Dropdown.Item>
                     <Dropdown.Item className = "item">
-                        <Link className = "custom-link" to="/">Sign Out</Link>
+                        <Link className = "custom-link" to="/login">Sign Out</Link> {/*TO DO MAKE LOG OUT*/}
                     </Dropdown.Item>
 
 
                 </Dropdown.Menu>
             </Dropdown>
             <Nav className="flex-column">
-                <Nav.Link className = "nav-link">
+                <Nav.Link as = {Link} to = "/chat "className = "nav-link" >
                     <FaEnvelope className="icon" />
                 </Nav.Link>
-                <Nav.Link className = "nav-link">
+                <Nav.Link as = {Link} to = "/user"className = "nav-link">
                     <FaHome className="icon" />
                 </Nav.Link>
             </Nav>

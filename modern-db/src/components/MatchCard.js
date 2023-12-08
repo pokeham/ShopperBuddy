@@ -21,7 +21,7 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
 
                 currLogged: 'Cheyenne Newman' // Replace with the name of the logged-in customer
             };
-            console.log(customer.customerName)
+
             session.run(markAsSeenQuery, params)
                 .then(() => {
                     // Update your customer list or UI here as needed
@@ -29,8 +29,13 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
                 })
                 .catch(error => console.error(error))
                 .finally(() => session.close());
+
         }
     };
+    const check = () =>{
+        handleMarkAsSeen()
+        //enter rafa code to make chat
+    }
     return(
         <div className={'main-card-div'}>
             <Container className = {'card-container'} fluid >
@@ -44,13 +49,12 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
                             <>
                                 <p className={'customer-data'}>Similarity: {customer.totalScore.toFixed(4)*100}%</p>
                                 <p className={'customer-data'}>City/Cities: {customer.cities}</p>
-                                <Button variant="link" onClick={handleMarkAsSeen} className="icon-button">
+                                <Button variant="link" onClick={check} className="icon-button">
                                     <i className="bi bi-check-circle-fill"></i>
                                 </Button>
                                 <Button variant="link" onClick = {handleMarkAsSeen} className="icon-button">
                                     <i className="bi bi-x-circle-fill"></i>
                                 </Button>
-
                             </>
                         )}
                     </Col>
