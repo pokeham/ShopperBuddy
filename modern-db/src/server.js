@@ -170,11 +170,6 @@ app.post('/api/chat', async (req, res) => {
 
     res.json({ message: 'chat created'});
 
-
-
-
-
-
 });
 
 app.post('/api/message', async (req, res) => {
@@ -204,12 +199,6 @@ app.post('/api/message', async (req, res) => {
     }
 
     res.json({ message: 'Message sent'});
-
-
-
-
-
-
 });
 
 app.post('/api/populatechat', async (req, res) => {
@@ -232,13 +221,6 @@ app.post('/api/populatechat', async (req, res) => {
     else{
         console.log("chat was not found");
     }
-
-
-
-
-
-
-
 
 });
 
@@ -268,13 +250,6 @@ app.post('/api/populateroom', async (req, res) => {
     else{
         console.log("chat was not found");
     }
-
-
-
-
-
-
-
 
 });
 

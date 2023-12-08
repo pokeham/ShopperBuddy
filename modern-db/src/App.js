@@ -6,13 +6,14 @@ import {useReadCypher, useWriteCypher} from "use-neo4j";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/protectedRoute";
 import ChatFunctions from "./pages/chatFunctions";
+import SignedInRoute from "./components/SignedInRoute";
 function App() {
 
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<SignInPage />} />
-                <Route path="/login" element={<SignInPage />} />
+                {/*<Route path="/login" element={<SignInPage />} />*/}
                 <Route path="/user" element={
                     <ProtectedRoute>
                         <HomePage />
@@ -22,6 +23,11 @@ function App() {
                     <ProtectedRoute>
                         <ChatPage />
                     </ProtectedRoute>
+                } />
+                <Route path="/login" element={
+                    <SignedInRoute>
+                        <SignInPage />
+                    </SignedInRoute>
                 } />
             </Routes>
         </Router>
