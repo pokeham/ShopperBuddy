@@ -63,11 +63,16 @@ const ChatRoom = ({sender,other})=>{
         <div className={'main-div-chat-room'}>
             <Container fluid className = {'main-container-chat-room'} >
                 <Row className = {'bottom-row-chat-room'}>
+                    <div className={'dynamic-div'}>
+
+
                     {messageList.map((msg, index) => (
-                        <Col xs = {12}  key = {index}>
-                            <ChatBox sender = {msg.sender} data = {msg.content} actual = {sender}></ChatBox>
+                        <Col xs = {12}  key = {index} className = {'dynamic-col'}>
+                                <ChatBox sender = {msg.sender} data = {msg.content} actual = {sender}></ChatBox>
+
                         </Col>
                     ))}
+                    </div>
                 </Row>
                 <Row className = {'text-entry-row'}>
                     <Col xs = {12} className = {'text-entry-col'}>
