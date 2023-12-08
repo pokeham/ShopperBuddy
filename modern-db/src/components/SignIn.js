@@ -6,90 +6,99 @@ import { auth } from '../database/firebase';
 import '../css/SignIn.css';
 import{ createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth"
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
-import  {useNavigate}  from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
+
+
 
 
 
 function SignIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    //const [password, setPassword] = useState('');
     const [showErrorEmail, setShowErrorEmail] = useState(false);
     const [showErrorPassword, setShowErrorPassword] = useState(false);
     const [errorEmailMessage, setErrorEmailMessage] = useState('');
     const [errorPasswordMessage, setErrorPasswordMessage] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    const handleAuth = async () => {
-        try {
-            const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-            navigate('/Home');
-        } catch (signInError) {
-            if (signInError.code === 'auth/invalid-credential') {
 
-                try {
-                    const newUserCredentials = await createUserWithEmailAndPassword(auth, email, password);
-                    navigate('/Home');
-                } catch (signUpError) {
-                    console.error('sing up error: ' + signUpError.message);
-                    loginErrorHandling(signUpError.message);
-                }
-            } else {
-                console.error('log in error: ' + signInError.message);
-                loginErrorHandling(signInError.message);
-            }
-        }
-    }
-    const loginErrorHandling = (errorString) => {
-        if (errorString === 'Firebase: Error (auth/invalid-email).') {
-            setShowErrorEmail(true);
-            setErrorEmailMessage("Invalid email format")
-        } else if (errorString === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
-            setShowErrorPassword(true);
-            setErrorPasswordMessage("Password must be at least 6 characters ")
-        } else if (errorString === 'Firebase: Error (auth/email-already-in-use).') {
-            setShowErrorPassword(true);
-            setErrorPasswordMessage("Email is already in use, if this is your account the password is incorrect")
-        } else if (errorString === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).') {
-            setShowErrorEmail(true);
-            setErrorEmailMessage("Account temporarily disabled due to too many login attempts")
+
+    const handleLogIn = async (e) => {
+        e.preventDefault();
+
+        // Make a POST request to your backend for user login
+        const response = await fetch('http://localhost:3001/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        // Check if authentication was successful based on the response
+        if (response.ok) {
+
+      console.log('in the login function');
+            Cookies.set('token', data.token, { expires: 1 }); // Expires in 1 day
+            navigate('/user');
         }
 
-    }
-    const tryLogin = () => {
-        if (email !== '' && password !== '') {
-            setShowErrorPassword(false);
-            setShowErrorEmail(false);
-            handleAuth().then(r => r);
+
+    };
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+
+        // Make a POST request to your backend for user registration
+        const response = await fetch('http://localhost:3001/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        // Check if authentication was successful based on the response
+        if (response.ok) {
+
+            Cookies.set('token', data.token, { expires: 1 }); // Expires in 1 day
+            console.log('in the login function');
+            navigate('/user');
         }
-        if (email === '') {
-            setShowErrorEmail(true);
-            setErrorEmailMessage("Missing email");
-        } else {
-            setShowErrorEmail(false);
-        }
-        if (password === '') {
-            setShowErrorPassword(true);
-            setErrorPasswordMessage("Missing password");
-        } else {
-            setShowErrorPassword(false);
-        }
-    }
+    };
     const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+        setUsername(event.target.value);
     };
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+    //
+    // const handleFormSubmit = (event) => {
+    //     event.preventDefault();
+    //     tryLogin();
+    //
+    // };
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        tryLogin();
+    const goTo = async (e) => {
+        e.preventDefault();
+        navigate('/user');
+    }
 
-    };
+
     return (
         <div className={'main-div'}>
             <Container fluid className={'main-container'}>
@@ -104,12 +113,12 @@ function SignIn() {
                         <h1 className={'welcome-header'}>
                             WELCOME
                         </h1>
-                        <Form onSubmit={handleFormSubmit}>
-                            <Form.Label id = "email" className="form-header">Enter your email:</Form.Label>
+                        <Form onSubmit={goTo}>
+                            <Form.Label id = "username" className="form-header">Enter your email:</Form.Label>
                             <FormControl
                                 type="text"
                                 placeholder="example@email.com"
-                                value={email}
+                                value={username}
                                 onChange={handleEmailChange}
                                 style={{
                                     marginLeft:'25%',
@@ -122,7 +131,7 @@ function SignIn() {
                                 }}
                             />{showErrorEmail && <div className={"error-message"} style={{ alignSelf: 'flex-start', flexWrap: 'wrap' }} >{errorEmailMessage}</div>}
                         </Form>
-                        <Form onSubmit={handleFormSubmit}>
+                        <Form onSubmit={goTo}>
                             <Form.Label if = "password" className="form-header">Enter password:</Form.Label>
                             <div className="password-container">
                                 <InputGroup style={{
@@ -159,14 +168,24 @@ function SignIn() {
                                 </div>
                             )}
                         </Form>
-                            <Button
-                                className={'login-button'}
-                                variant="outline-success"
-                                type="submit"
-                                onClick={handleFormSubmit}
-                            >
-                                Login / Sign Up
-                            </Button>
+                        <Button
+                            className={'login-button'}
+                            variant="outline-success"
+                            type="submit"
+                            onClick={handleLogIn}
+                            style={{ marginRight: '10px' }}
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            className={'login-button'}
+                            variant="outline-success"
+                            type="submit"
+                            onClick={handleSignUp}
+                        >
+                            Sign Up
+                        </Button>
+
 
                     </Col>
                     <Col xs = {3}>

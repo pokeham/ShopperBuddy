@@ -10,9 +10,11 @@ const driver = neo4j.driver('neo4j+s://ed0f2f4d.databases.neo4j.io', neo4j.auth.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
       <Neo4jProvider driver={driver}>
           <App />
       </Neo4jProvider>
+
   </React.StrictMode>
 );
 
