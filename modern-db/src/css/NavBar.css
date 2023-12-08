@@ -1,0 +1,66 @@
+/* Sidebar.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.sidebar {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    width: 8vw;
+    height: 100vh;
+    background-color: darkslategray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.nav-link {
+    display: flex;
+    align-items: flex-start;
+}
+.dropdown-menu {
+    width: 100%;
+    border-radius: 0 !important;
+    background-color: darkslategray;
+    border: none;
+}
+.dropdown-right .dropdown-menu {
+    left: 7vw;
+    right: 8vw; /* Position the dropdown to the right */
+    top:0;
+
+}
+.custom-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default color */
+}
+.dropdown-toggle::after {
+    display: none; /* Hide the dropdown arrow */
+}
+.item{
+    color: linen;
+}
+
+.profile-icon {
+    border: 0.5vh solid linen !important;
+    color: linen;
+    font-size:3vw;
+
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center vertically */
+    text-align: center;
+    width: 6vw;
+    height: 6vw;
+    margin-bottom: 20px;
+    align-self: flex-start;
+    background-color: orange;
+    font-weight: 800;
+}
+.icon {
+    font-size: 24px;
+    color: linen;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+/* Add additional styles as needed */
