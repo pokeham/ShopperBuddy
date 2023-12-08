@@ -1,0 +1,44 @@
+.card-container{
+    color: linen;
+    background-color: orange;
+    height: inherit;
+    width: 100%;
+    border-radius: inherit;
+}
+.content-col{
+    border: 1px solid black;
+    text-align: left;
+}
+.customer-data{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+.profile-header{
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0;
+}
+.profile-img{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 48vh;
+    border-radius: inherit;
+}
+.top-row{
+    border-radius: inherit;
+    height: 50vh;
+    background-color: lightseagreen;
+}
+.bottom-row{
+    border-radius: inherit;
+    background-color: firebrick;
+    height: 30vh;
+}
+.main-card-div{
+    border-radius: 10%;
+    margin-right: 20%;
+    margin-left:20%;
+    height: 80vh;
+    border: 1px solid black;
+}
