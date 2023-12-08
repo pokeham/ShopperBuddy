@@ -6,12 +6,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../css/ChatRoom.css';
 import ChatBox from './ChatBox'
-const ChatRoom = ({temp})=>{
+const ChatRoom = ({sender,other})=>{
     return(
         <div className={'main-div-chat-room'}>
             <Container fluid className = {'main-container-chat-room'} >
                 <Row className = {'bottom-row-chat-room'}>
-                    <ChatRoom></ChatRoom>
+                    <ChatBox sender = {sender}></ChatBox>
                 </Row>
             </Container>
         </div>

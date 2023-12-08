@@ -26,7 +26,7 @@ function Chat(){
                     </Col>
                 </Row>
                 {clicked ? (
-                        <ChatRoom temp = {otherUser}>
+                        <ChatRoom other = {otherUser} sender = {"CURR"}>
 
                         </ChatRoom>
                 ):(
