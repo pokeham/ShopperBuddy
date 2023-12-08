@@ -10,9 +10,11 @@ const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', '
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
       <Neo4jProvider driver={driver}>
           <App />
       </Neo4jProvider>
+
   </React.StrictMode>
 );
 
