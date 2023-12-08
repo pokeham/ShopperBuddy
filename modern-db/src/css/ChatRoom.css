@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.main-div-chat-room{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    height: 80vh;
+    width: 100%;
+    background: rgba(47, 79, 79, 0.3);
+}
+.main-container-chat-room{
+    width: 100%;
+    height: inherit;
+}
+.chat-room-header{
+    font-weight: 800;
+    font-size: 15vh;
+    color: linen;
+    text-align: left;
+}
+
+.bottom-row-chat-room{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow-y: scroll;
+}

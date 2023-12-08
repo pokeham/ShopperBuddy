@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.card-container{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    color: linen;
+    background-color: darkslategray;
+
+    height: inherit;
+    width: 100%;
+    border-radius: inherit;
+}
+.content-col-match{
+
+    text-align: left;
+}
+.temp{
+    text-align: right;
+}
+.icon-button-red{
+    color: red; /* Icon color */
+    font-size: 50px; /* Icon size */
+    padding: 0; /* Reduces button padding */
+    border: none; /* Removes border */
+    background: none; /* Removes background */
+    text-align: right;
+    margin: 5px;
+}
+.icon-button-green{
+    color: darkgreen; /* Icon color */
+    font-size: 50px; /* Icon size */
+    padding: 0; /* Reduces button padding */
+    border: none; /* Removes border */
+    background: none; /* Removes background */
+    text-align: right;
+    margin: 5px;
+}
+
+.icon-button-green:hover {
+    color: linen; /* Color on hover */
+}
+.icon-button-red:hover {
+    color: linen; /* Color on hover */
+}
+.customer-data{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+.profile-header{
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0;
+}
+.profile-img{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 48vh;
+    border-radius: inherit;
+}
+.top-row-card{
+    border-radius: inherit;
+    height: 50vh;
+    background-color: darkslategray;
+}
+.bottom-row-card{
+    border-radius: inherit;
+    background-color: orange;
+    height: 30vh;
+}
+.main-card-div{
+    border-radius: 10%;
+    margin-right: 20%;
+    margin-left:20%;
+    height: 80vh;
+    border: 5px solid linen;
+    overflow: hidden;
+}

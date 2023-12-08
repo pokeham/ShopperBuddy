@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.main-div-chat-module{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    height: 20vh;
+    width: 100%;
+    background: rgba(47, 79, 79, 0.2);
+    margin-top: 1vh;
+    min-height: 100px;
+    overflow: hidden;
+    transition: ease-in-out 0.2s;
+
+}
+.main-div-chat-module:hover{
+    background-color: rgba(47, 79, 79, 0.6);
+    border:5px solid linen;
+}
+.profile-chat-module{
+    border: 0.5vh solid linen !important;
+    color: linen;
+    font-size:3vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center vertically */
+    text-align: center;
+    width: 6vw;
+    height: 6vw;
+    min-height: 40px;
+    min-width: 40px;
+    align-self: flex-start;
+    background-color: orange;
+    font-weight: 800;
+}
+.main-container-chat-module{
+
+    min-height:100px;
+    width: 100%;
+    height: inherit;
+
+}
+.row-chat-module{
+    min-height: 100px;
+    height: inherit;
+
+}
+.icon-chat-module{
+    min-height: 100px;
+    height: inherit;
+
+}
+
+.content-col-chat-module{
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center */
+    text-align: left;
+    height: inherit;
+
+}
+.username-chat-module{
+    color: linen;
+    font-weight: 700;
+}
+.button-col-chat-module{
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center */
+    justify-items: flex-start;
+    text-align: right;
+    height: inherit;
+}
+.view-chat-module{
+    display: inline-flex; /* Use inline-flex to center vertically */
+    align-items: center; /* Vertically center the content */
+    justify-content: center;
+    min-height: 80px;
+    width: 20vw;
+    height: 15vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 60px;
+    color: linen;
+    background-color: orange;
+    border: 2px solid linen;
+}
+.view-chat-module:hover{
+    border: 2px solid linen;
+
+}
