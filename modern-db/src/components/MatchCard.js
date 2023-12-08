@@ -49,14 +49,18 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
                             <>
                                 <p className={'customer-data'}>Similarity: {customer.totalScore.toFixed(4)*100}%</p>
                                 <p className={'customer-data'}>City/Cities: {customer.cities}</p>
-                                <Button variant="link" onClick={check} className="icon-button">
-                                    <i className="bi bi-check-circle-fill"></i>
-                                </Button>
-                                <Button variant="link" onClick = {handleMarkAsSeen} className="icon-button">
-                                    <i className="bi bi-x-circle-fill"></i>
-                                </Button>
+
                             </>
                         )}
+                    </Col>
+                    <Col xs ={12} className = {'temp'}>
+                        <Button variant="link" onClick = {handleMarkAsSeen} className="icon-button-red" >
+                            <i className="bi bi-x-circle-fill"></i>
+                        </Button>
+                        <Button variant="link" onClick={check} className="icon-button-green">
+                            <i className="bi bi-check-circle-fill"></i>
+                        </Button>
+
                     </Col>
                 </Row>
             </Container>

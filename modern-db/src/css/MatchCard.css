@@ -3,25 +3,43 @@
 .card-container{
     font-family: "Plus Jakarta Sans", sans-serif;
     color: linen;
-    background-color: orange;
+    background-color: darkslategray;
+
     height: inherit;
     width: 100%;
     border-radius: inherit;
 }
 .content-col-match{
-    border: 1px solid black;
+
     text-align: left;
 }
-.icon-button {
-    color: #007bff; /* Icon color */
-    font-size: 24px; /* Icon size */
+.temp{
+    text-align: right;
+}
+.icon-button-red{
+    color: red; /* Icon color */
+    font-size: 50px; /* Icon size */
     padding: 0; /* Reduces button padding */
     border: none; /* Removes border */
     background: none; /* Removes background */
+    text-align: right;
+    margin: 5px;
+}
+.icon-button-green{
+    color: darkgreen; /* Icon color */
+    font-size: 50px; /* Icon size */
+    padding: 0; /* Reduces button padding */
+    border: none; /* Removes border */
+    background: none; /* Removes background */
+    text-align: right;
+    margin: 5px;
 }
 
-.icon-button:hover {
-    color: #0056b3; /* Color on hover */
+.icon-button-green:hover {
+    color: linen; /* Color on hover */
+}
+.icon-button-red:hover {
+    color: linen; /* Color on hover */
 }
 .customer-data{
     font-size: 15px;
@@ -42,11 +60,11 @@
 .top-row-card{
     border-radius: inherit;
     height: 50vh;
-    background-color: lightseagreen;
+    background-color: darkslategray;
 }
 .bottom-row-card{
     border-radius: inherit;
-    background-color: firebrick;
+    background-color: orange;
     height: 30vh;
 }
 .main-card-div{
@@ -54,5 +72,6 @@
     margin-right: 20%;
     margin-left:20%;
     height: 80vh;
-    border: 1px solid black;
+    border: 5px solid linen;
+    overflow: hidden;
 }

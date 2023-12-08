@@ -107,16 +107,16 @@ function Home(){
                 </Row>
                 <Row>
                     <Col xs = {3} className = {'middle'}>
-                        <Button onClick={handlePreviousClick} disabled={currentCustomerIndex === 0}>
-                            Previous
+                        <Button onClick={handlePreviousClick} disabled={currentCustomerIndex === 0} className = {'prev'}>
+                            <i className="bi bi-arrow-left"></i>
                         </Button>
                     </Col>
                     <Col xs = {6} className = {'middle'}>
                         <MatchCard customer={similarCustomers[currentCustomerIndex]} driver={driver} updateCustomers={removeSeenCustomer} />
                     </Col>
                     <Col xs = {3} className = {'middle'}>
-                        <Button onClick={handleNextClick} disabled={currentCustomerIndex === similarCustomers.length - 1}>
-                            Next
+                        <Button onClick={handleNextClick} disabled={currentCustomerIndex === similarCustomers.length - 1} className = {'next'}>
+                            <i className="bi bi-arrow-right"></i>
                         </Button>
                     </Col>
                 </Row>
