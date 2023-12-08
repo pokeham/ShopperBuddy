@@ -10,29 +10,33 @@
     border-radius: inherit;
 }
 .content-col-match{
-
+    padding-top: 3vh;
     text-align: left;
 }
 .temp{
     text-align: right;
 }
 .icon-button-red{
+
     color: red; /* Icon color */
     font-size: 50px; /* Icon size */
     padding: 0; /* Reduces button padding */
     border: none; /* Removes border */
     background: none; /* Removes background */
     text-align: right;
-    margin: 5px;
+    margin-bottom: 4vh;
+    margin-top: -2vh;
+    margin-right: 1vw;
 }
 .icon-button-green{
+    margin-top: -2vh;
     color: darkgreen; /* Icon color */
     font-size: 50px; /* Icon size */
     padding: 0; /* Reduces button padding */
     border: none; /* Removes border */
     background: none; /* Removes background */
     text-align: right;
-    margin: 5px;
+    margin-bottom: 4vh;
 }
 
 .icon-button-green:hover {
