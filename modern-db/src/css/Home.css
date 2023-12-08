@@ -11,7 +11,9 @@
     height: 10vh;
 }
 .next{
-    height: 10vh;
+    margin-right:1vw;
+    margin-left: -6vw;
+    height: 12vh;
     font-size: 50px;
     overflow: hidden;
     width: 100%;
@@ -23,9 +25,10 @@
     border: none;
 }
 .prev{
+    margin-left:7vw;
     border: none;
     overflow: hidden;
-    height: 10vh;
+    height: 12vh;
     font-size: 50px;
     width: 100%;
     display: inline-flex; /* Use inline-flex to center vertically */
@@ -52,7 +55,7 @@
     height: 80vh;
     display: inline-flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
 }
 .bottom{
