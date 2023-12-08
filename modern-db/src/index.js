@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {Neo4jProvider,createDriver} from "use-neo4j";
 
 const neo4j = require('neo4j-driver');
-const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', 'password'));
+const driver = neo4j.driver('neo4j+s://ed0f2f4d.databases.neo4j.io', neo4j.auth.basic('neo4j', '4fYiaR4Kq-rJCEiJLd0lBzQpq3x0h2NPYJ5vCsNifsQ'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

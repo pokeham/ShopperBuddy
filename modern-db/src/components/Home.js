@@ -15,7 +15,7 @@ function Home(){
     const [driver, setDriver] = useState(null);
 
     useEffect(() => {
-        const newDriver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', 'password'));
+        const newDriver = neo4j.driver('neo4j+s://ed0f2f4d.databases.neo4j.io', neo4j.auth.basic('neo4j', '4fYiaR4Kq-rJCEiJLd0lBzQpq3x0h2NPYJ5vCsNifsQ'));
         setDriver(newDriver);
 
         return () => {
@@ -29,31 +29,39 @@ function Home(){
         if (driver) {
             const session = driver.session();
             const query = `
-            MATCH (t:Transaction {Customer_Name: $customerName})
-            WITH t
-            MATCH (otherT:Transaction)
-            WHERE otherT.Customer_Name <> $customerName
-            WITH t, otherT,
-              algo.similarity.jaccard(t.Store_Type, otherT.Store_Type) AS storeSimilarity,
-              algo.similarity.jaccard(t.Payment_Method, otherT.Payment_Method) AS paymentSimilarity
-            WHERE storeSimilarity > 0.5  // Adjust the threshold as needed
-              AND paymentSimilarity > 0.5  // Adjust the threshold as needed
-              AND ABS(t.Total_Cost - otherT.Total_Cost) <= 10  // Adjust the threshold as needed
-            RETURN otherT.Customer_Name AS customerName, 
-                   storeSimilarity, 
-                   paymentSimilarity
-            LIMIT 10
+            MATCH (c1:Customer), (c2:Customer) 
+            WHERE c1 <> c2 AND c1.Name = $customerName
+            WITH c1,c2, 
+                1 / (1 + log(1 + abs(size(c1.Transactions) - size(c2.Transactions)))) AS transactionSimilarity 
+            WITH c1, c2, transactionSimilarity, 
+                1 / (1 + abs(coalesce(c1.Total_Cost, 0) - coalesce(c2.Total_Cost, 0)) + 
+                abs(coalesce(c1.Total_Items, 0) - coalesce(c2.Total_Items, 0))) AS numericSimilarity 
+            WITH c1, c2, numericSimilarity,transactionSimilarity, 
+                size([store IN c1.Store_Types WHERE store IN c2.Store_Types]) AS intersectionSize, // Size of Intersection 
+                size(apoc.coll.union(c1.Store_Types, c2.Store_Types)) AS unionSize // Size of Union 
+            WITH c1, c2, numericSimilarity, intersectionSize, unionSize, transactionSimilarity, 
+                CASE WHEN unionSize > 0 THEN intersectionSize * 1.0 / unionSize ELSE 0 END AS storeTypeSimilarity, 
+                CASE WHEN c1.Catagory = c2.Catagory THEN 5 ELSE 0 END AS categorySimilarity 
+            RETURN c2.Name AS name, numericSimilarity, storeTypeSimilarity, categorySimilarity,unionSize,intersectionSize,transactionSimilarity, 
+            (numericSimilarity + storeTypeSimilarity + categorySimilarity+transactionSimilarity) / 8 AS totalScore 
+            ORDER BY totalScore DESC 
+            LIMIT 10 
           `;
-
+            //c1.Total_Cost,c2.Total_Cost,c1.Total_Items,c2.Total_Items, size(c1.Transactions),size(c2.Transactions),
             const params = { customerName: 'Cheyenne Newman' }; // Replace with the desired customer name
 
             session
-            .run(query, params)
+            .run(query,params)
             .then((result) => {
                 const similarCustomers = result.records.map((record) => ({
-                    customerName: record.get('customerName'),
-                    storeSimilarity: record.get('storeSimilarity').toFloat(),
-                    paymentSimilarity: record.get('paymentSimilarity').toFloat(),
+                    customerName: record.get('name'),
+                    numericSimilarity: record.get('numericSimilarity'),
+                    storeTypeSimilarity: record.get('storeTypeSimilarity'),
+                    categorySimilarity: record.get('categorySimilarity'),
+                    unionSize: record.get('unionSize'),
+                    intersectionSize: record.get('intersectionSize'),
+                    transactionSimilarity: record.get('transactionSimilarity'),
+                    totalScore: record.get('totalScore'),
                 }));
                 setSimilarCustomers(similarCustomers);
             })
@@ -69,13 +77,19 @@ function Home(){
     return (
         <div>
             <h1>Similar Customers to Customer 'Cheyenne Newman'</h1>
-            <ul>
-                {similarCustomers.map((customer, index) => (
-                    <li key={index}>
-                        {customer.customerName} - Store Similarity: {customer.storeSimilarity.toFixed(2)} - Payment Similarity: {customer.paymentSimilarity.toFixed(2)}
-                    </li>
-                ))}
-            </ul>
+            {similarCustomers.map((customer, index) => (
+                <p key={index}>
+                    Name: {customer.name}
+                    Customer Name: {customer.customerName}
+                    Numeric Similarity: {customer.numericSimilarity.low} {/* Assuming numericSimilarity is an object */}
+                    Store Type Similarity: {customer.storeTypeSimilarity.low} {/* Modify accordingly */}
+                    Category Similarity: {customer.categorySimilarity.low}
+                    Union Size: {customer.unionSize.low}
+                    Intersection Size: {customer.intersectionSize.low}
+                    Transaction Similarity: {customer.transactionSimilarity.low}
+                    Total Score: {customer.totalScore.low}
+                </p>
+            ))}
         </div>
     );
 };
