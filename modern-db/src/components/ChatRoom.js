@@ -88,7 +88,7 @@ const ChatRoom = ({sender,other})=>{
                                 </div>
                                 <div className={'d-flex justify-content-end'}>
                                     <Button type="submit" className="input-button-chat">
-                                        Submit
+                                        Send
                                     </Button>
                                 </div>
                             </div>

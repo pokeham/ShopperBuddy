@@ -58,6 +58,7 @@
 .input-button-chat {
     outline: none;
     border: none;
+    border-radius: 1vh 0 0 1vh;
      /* Adjust as needed */
     right: 3vw; /* Adjust as needed */
     font-weight: 800;
@@ -86,7 +87,7 @@
 .dynamic-div{
     width: 100%;
     height: 100%; /* Ensure the container takes up all available height */
-    overflow: scroll; /* Hide any child content that overflows */
+    overflow-y: scroll; /* Hide any child content that overflows */
     position: relative;
 }
 .bottom-row-chat-room{
