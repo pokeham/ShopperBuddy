@@ -21,8 +21,8 @@ app.use(
     })
 );
 
-// ... other imports and middleware
-app.use(express.static(path.join(__dirname, 'build')));
+// // ... other imports and middleware
+// app.use(express.static(path.join(__dirname, 'build')));
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
