@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import  {useNavigate}  from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../css/MatchCard.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const MatchCard = ({ customer, driver, updateCustomers })=>{
     const handleMarkAsSeen = () => {
@@ -33,22 +34,23 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
     return(
         <div className={'main-card-div'}>
             <Container className = {'card-container'} fluid >
-                <Row className = {'top-row'}>
+                <Row className = {'top-row-card'}>
                     <img src='image.png' className={'profile-img'}/>
                 </Row>
-                <Row className = {'bottom-row'}>
-                    <Col xs = {12} className = {'content-col'}>
+                <Row className = {'bottom-row-card'}>
+                    <Col xs = {12} className = {'content-col-match'}>
                         <h1 className={'profile-header'}>Name: {customer ? customer.customerName : 'No Customer Selected'}</h1>
                         {customer && (
                             <>
                                 <p className={'customer-data'}>Similarity: {customer.totalScore.toFixed(4)*100}%</p>
                                 <p className={'customer-data'}>City/Cities: {customer.cities}</p>
-                                <Button onClick={handleMarkAsSeen}>
-
+                                <Button variant="link" onClick={handleMarkAsSeen} className="icon-button">
+                                    <i className="bi bi-check-circle-fill"></i>
                                 </Button>
-                                <Button onClick = {handleMarkAsSeen}>
-
+                                <Button variant="link" onClick = {handleMarkAsSeen} className="icon-button">
+                                    <i className="bi bi-x-circle-fill"></i>
                                 </Button>
+
                             </>
                         )}
                     </Col>

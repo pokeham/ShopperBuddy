@@ -100,8 +100,8 @@ function Home(){
     };
 
     return (
-        <div className={'main-div'}>
-            <Container className = {'main-container'} fluid >
+        <div className={'main-div-home'}>
+            <Container className = {'main-container-home'} fluid >
                 <Row>
                     <Col xs = {12} className = {'top'}></Col>
                 </Row>
