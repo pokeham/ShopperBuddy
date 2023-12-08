@@ -29,6 +29,8 @@
 
 }
 .custom-link {
+    background: none;
+    border: none;
     text-decoration: none; /* Remove underline */
     color: inherit; /* Use the default color */
 }

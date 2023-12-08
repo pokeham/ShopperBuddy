@@ -10,6 +10,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../database/firebase';
 import { Link } from 'react-router-dom';
 import {browserSessionPersistence, setPersistence} from "firebase/auth";
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
 import '../css/NavBar.css';
 
 function NavBar(){
@@ -19,6 +21,24 @@ function NavBar(){
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const [loading, setLoading] = useState(true);
+    const [sender, setSender] = useState(getCurrentUserId);
+    function logout(){
+        Cookies.remove('token');
+        navigate('/');
+    }
+    function getCurrentUserId() {
+        const token = Cookies.get('token');
+        if (!token) return null;
+
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken.username);
+            return decodedToken.username;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -59,12 +79,12 @@ function NavBar(){
         <Navbar className="sidebar">
             <Dropdown className = "dropdown-right">
                 <Dropdown.Toggle className="profile-icon">
-                    CA
+                    {sender[0]}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-menu">
-                    <Dropdown.Item className = "item">Name </Dropdown.Item>
+                    <Dropdown.Item className = "item">{sender}</Dropdown.Item>
                     <Dropdown.Item className = "item">
-                        <Link className = "custom-link" to="/login">Sign Out</Link> {/*TO DO MAKE LOG OUT*/}
+                        <Button className = "custom-link" onClick = {logout}>Sign Out</Button> {/*TO DO MAKE LOG OUT*/}
                     </Dropdown.Item>
 
 

@@ -124,7 +124,9 @@ app.post('/api/register', async (req, res) => {
         const newUser = { username, password: hashedPassword };
         await usersCollection.insertOne(newUser);
 
-        res.json({ message: 'User registered successfully', user: newUser });
+        const token = jwt.sign({  username: username }, 'yourSecretKey', { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true, sameSite: true });
+        res.json({ message: 'User registered successfully', user: newUser,token });
 
     } catch (error) {
         console.error('Error registering user:', error);

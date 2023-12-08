@@ -7,8 +7,24 @@ import  {useNavigate}  from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../css/MatchCard.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
 
 const MatchCard = ({ customer, driver, updateCustomers })=>{
+    const [sender, setSender] = useState(getCurrentUserId);
+    function getCurrentUserId() {
+        const token = Cookies.get('token');
+        if (!token) return null;
+
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken.username);
+            return decodedToken.username;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
     const handleMarkAsSeen = () => {
         if (driver && customer) {
             const session = driver.session();
@@ -19,9 +35,10 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
             const params = {
                 currSelected: customer.customerName,
 
-                currLogged: 'Cheyenne Newman' // Replace with the name of the logged-in customer
+                currLogged: sender // Replace with the name of the logged-in customer
             };
-
+            console.log(customer.customerName);
+            console.log({sender});
             session.run(markAsSeenQuery, params)
                 .then(() => {
                     // Update your customer list or UI here as needed
@@ -32,9 +49,25 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
 
         }
     };
+    function createNewChat() {
+        fetch('http://localhost:3001/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ participants: [sender,customer.customerName] }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
     const check = () =>{
-        handleMarkAsSeen()
-        //enter rafa code to make chat
+        handleMarkAsSeen();
+        createNewChat();
     }
     return(
         <div className={'main-card-div'}>

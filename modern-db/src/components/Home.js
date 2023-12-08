@@ -19,7 +19,7 @@ function Home(){
     const [similarCustomers, setSimilarCustomers] = useState([]);
     const [driver, setDriver] = useState(null);
     const [currentCustomerIndex, setCurrentCustomerIndex] = useState(0);
-
+    const [sender, setSender] = useState(getCurrentUserId);
     function getCurrentUserId() {
         const token = Cookies.get('token');
         if (!token) return null;
@@ -73,8 +73,9 @@ function Home(){
             ORDER BY totalScore DESC 
             LIMIT 20 
           `;
+
             //c1.Total_Cost,c2.Total_Cost,c1.Total_Items,c2.Total_Items, size(c1.Transactions),size(c2.Transactions),
-            const params = { customerName: 'Cheyenne Newman' }; // Replace with the desired customer name
+            const params = { customerName: sender }; // Replace with the desired customer name
 
             session
             .run(query,params)
