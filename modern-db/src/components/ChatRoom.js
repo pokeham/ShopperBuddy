@@ -9,10 +9,27 @@ import ChatBox from './ChatBox'
 const ChatRoom = ({sender,other})=>{
     const [messageList, setMessageList] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        //use input value
-    };
+    const sendMesssage = async (e) => {
+        e.preventDefault();
+
+        fetch('http://localhost:3001/api/message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ participants: [sender,other], content: inputValue }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Handle success, update state, etc.
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle errors here
+            });
+    }
+
     useEffect(() => {
         temp();
         const interval = setInterval(() => {
@@ -54,7 +71,7 @@ const ChatRoom = ({sender,other})=>{
                 </Row>
                 <Row className = {'text-entry-row'}>
                     <Col xs = {12} className = {'text-entry-col'}>
-                        <Form onSubmit={handleSubmit} className="input-form">
+                        <Form onSubmit={sendMesssage} className="input-form">
                             <div className="input-group-chat-room">
                                 <div className={'text-div'}>
                                     <textarea
