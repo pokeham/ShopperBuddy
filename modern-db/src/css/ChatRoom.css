@@ -18,8 +18,6 @@
 }
 
 .bottom-row-chat-room{
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
     overflow-y: scroll;
+    height: 80vh;
 }

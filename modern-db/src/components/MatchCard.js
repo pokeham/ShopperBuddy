@@ -49,6 +49,10 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
 
         }
     };
+    const check = () =>{
+        handleMarkAsSeen();
+        createNewChat();
+    }
     function createNewChat() {
         fetch('http://localhost:3001/api/chat', {
             method: 'POST',
@@ -64,10 +68,6 @@ const MatchCard = ({ customer, driver, updateCustomers })=>{
             .catch((error) => {
                 console.error('Error:', error);
             });
-    }
-    const check = () =>{
-        handleMarkAsSeen();
-        createNewChat();
     }
     return(
         <div className={'main-card-div'}>

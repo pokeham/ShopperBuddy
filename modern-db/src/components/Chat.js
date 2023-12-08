@@ -13,8 +13,10 @@ function Chat(){
     const[clicked,setClicked] = useState(false);
     const[otherUser,setOtherUser] = useState("");
     const [sender, setSender] = useState(getCurrentUserId);
-    const [chatList, setChatList] = useState(getChat);
-
+    const [chatList, setChatList] = useState([]);
+    useEffect(() => {
+        getChat();
+    }, []);
     function getChat(){
         fetch('http://localhost:3001/api/populateroom', {
             method: 'POST',
@@ -24,9 +26,16 @@ function Chat(){
             body: JSON.stringify({ currUser: sender }),
         })
             .then(response => response.json())
-            .then(data => setChatList(data))
-            .catch(console.error);
+            .then(data => {
+                console.log("Fetched data:", data[0].participants); // Log the fetched data
+                setChatList(data);
+            })
+            .catch(error => {
+                console.error(error);
+                setChatList([]);
+            });
     }
+
 
     const otherFunction = (temp) => {
         setOtherUser(temp)
@@ -37,7 +46,6 @@ function Chat(){
     function getCurrentUserId() {
         const token = Cookies.get('token');
         if (!token) return null;
-
         try {
             const decodedToken = jwtDecode(token);
             console.log(decodedToken.username);
@@ -46,6 +54,7 @@ function Chat(){
             console.error('Error decoding token:', error);
             return null;
         }
+
     }
     return(
         <div className={'main-div-chat'}>
@@ -56,17 +65,15 @@ function Chat(){
                     </Col>
                 </Row>
                 {clicked ? (
-                        <ChatRoom other = {otherUser} sender = {"CURR"}>
+                        <ChatRoom other = {otherUser} sender = {sender}>
 
                         </ChatRoom>
                 ):(
                     <Row className = {'bottom-row-chat'}>
                         {chatList.map((chat,index)=>(
-                            <div key = {index}>
-                                <p>{chat.particpants}</p>
-                            </div>
-
-                            // <ChatModule loggedIn = {sender} Other = {chat.particpants[0] == sender ? chat.particpants[1] :chat.particpants[0]} clickedFunction = {clickedFunction} otherFunction = {otherFunction}></ChatModule>
+                            <Col key = {index} xs = {12}>
+                                <ChatModule  loggedIn = {sender} Other = {JSON.stringify(chat.participants[0]).replace(/"/g, '') == sender ? JSON.stringify(chat.participants[1]).replace(/"/g, '') : JSON.stringify(chat.participants[0]).replace(/"/g, '')} clickedFunction = {clickedFunction} otherFunction = {otherFunction}></ChatModule>
+                            </Col>
                         ))}
                     </Row>
                 )}
