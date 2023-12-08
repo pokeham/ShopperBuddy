@@ -15,7 +15,7 @@ function App() {
     return (
         <Router>
             <Routes>
-
+                <Route path="/" element={<SignInPage />} />
                 <Route path="/login" element={<SignInPage />} />
                 <Route path="/user" element={
                     <ProtectedRoute>

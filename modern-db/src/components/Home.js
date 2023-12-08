@@ -49,7 +49,7 @@ function Home(){
             RETURN c2.Name AS name, numericSimilarity, storeTypeSimilarity,cities,categorySimilarity,unionSize,intersectionSize,transactionSimilarity,  
             (numericSimilarity + storeTypeSimilarity + categorySimilarity+transactionSimilarity) / 8 AS totalScore 
             ORDER BY totalScore DESC 
-            LIMIT 10 
+            LIMIT 20 
           `;
             //c1.Total_Cost,c2.Total_Cost,c1.Total_Items,c2.Total_Items, size(c1.Transactions),size(c2.Transactions),
             const params = { customerName: 'Cheyenne Newman' }; // Replace with the desired customer name
