@@ -57,14 +57,12 @@
 }
 .input-button-chat {
     outline: none;
-    border: none    ;
-    bottom: calc(30vh - 2vw - 23vh);
+    border: none;
      /* Adjust as needed */
     right: 3vw; /* Adjust as needed */
     font-weight: 800;
     background-color: lightgreen;
     color: darkslategrey;
-    border-radius: 1vh 0 0 0;
 }
 .input-button-chat:hover{
     background-color: green;
