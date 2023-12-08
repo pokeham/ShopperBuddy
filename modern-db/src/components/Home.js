@@ -11,10 +11,32 @@ import {browserSessionPersistence, setPersistence} from "firebase/auth";
 import '../css/Home.css';
 import neo4j from 'neo4j-driver';
 import MatchCard from './MatchCard';
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
+
+
 function Home(){
     const [similarCustomers, setSimilarCustomers] = useState([]);
     const [driver, setDriver] = useState(null);
     const [currentCustomerIndex, setCurrentCustomerIndex] = useState(0);
+
+    function getCurrentUserId() {
+        const token = Cookies.get('token');
+        if (!token) return null;
+
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken.username);
+            return decodedToken.username;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
+
+    function logout(){
+        Cookies.remove('token');
+    }
 
     useEffect(() => {
         const newDriver = neo4j.driver('neo4j+s://ed0f2f4d.databases.neo4j.io', neo4j.auth.basic('neo4j', '4fYiaR4Kq-rJCEiJLd0lBzQpq3x0h2NPYJ5vCsNifsQ'));
@@ -99,6 +121,7 @@ function Home(){
         }
     };
 
+
     return (
         <div className={'main-div-home'}>
             <Container className = {'main-container-home'} fluid >
@@ -139,6 +162,7 @@ function Home(){
             {/*        Total Score: {customer.totalScore.toFixed(2)}*/}
             {/*    </p>*/}
             {/*))}*/}
+
         </div>
     );
 };

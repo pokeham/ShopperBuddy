@@ -21,7 +21,6 @@ app.use(
     })
 );
 
-// ... other imports and middleware
 // app.use(express.static(path.join(__dirname, 'build')));
 
 // Handles any requests that don't match the ones above
@@ -40,10 +39,14 @@ async function connectToDatabase() {
         console.log('Connected to MongoDB');
 
         const db = client.db('moderndbfinalprojectUsers');
+
+        const changeStream = db.collection("chats").watch();
+
         const collectionNames = await db.listCollections().toArray();
         const collectionExists = collectionNames.some(
             (collection) => collection.name === 'users'
         );
+
 
         if (!collectionExists) {
             await db.createCollection('users');
@@ -91,7 +94,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
-        const token = jwt.sign({ userId: user._id }, 'yourSecretKey', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, username: username }, 'yourSecretKey', { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, sameSite: true });
         res.json({ message: 'Login successful', user, token });
 
@@ -132,6 +135,145 @@ app.post('/api/register', async (req, res) => {
 // Route to log out a user
 app.post('/api/logout', (req, res) => {
     res.json({ message: 'Logout successful' });
+});
+
+app.post('/api/chat', async (req, res) => {
+
+    const db = client.db('moderndbfinalprojectUsers');
+    const usersCollection = db.collection('chats');
+
+
+    const { participants } = req.body;
+
+
+    const existingChat = await usersCollection.findOne({ participants: { $all: participants } });
+
+    const message = {
+        sender: participants[0],
+        content: "Hello! I am your new shopping buddy"
+    };
+
+    if (existingChat) {
+        await usersCollection.updateOne(
+            {participants: {$all: participants}},
+            {$push: {messages: [message]}},
+        );
+    }
+    else{
+        await usersCollection.insertOne({
+            participants: participants,
+            messages: [message]
+        });
+    }
+
+    res.json({ message: 'chat created'});
+
+
+
+
+
+
+});
+
+app.post('/api/message', async (req, res) => {
+
+    const db = client.db('moderndbfinalprojectUsers');
+    const usersCollection = db.collection('chats');
+
+
+    const { participants,content } = req.body;
+
+
+    const chat = await usersCollection.findOne({ participants: { $all: participants } });
+
+    const message = {
+        sender: participants[0],
+        content: content
+    };
+
+    if (chat) {
+        await usersCollection.updateOne(
+            {participants: {$all: participants}},
+            {$push: {messages: message}},
+        );
+    }
+    else{
+        console.log("chat was not found");
+    }
+
+    res.json({ message: 'Message sent'});
+
+
+
+
+
+
+});
+
+app.post('/api/populatechat', async (req, res) => {
+
+    const db = client.db('moderndbfinalprojectUsers');
+    const usersCollection = db.collection('chats');
+
+
+    const { participants} = req.body;
+
+
+    const chat = await usersCollection.findOne(
+        { participants: { $all: participants } },
+        { projection: { _id: 0, messages: 1 } }
+    );
+
+    if (chat) {
+        res.json(chat.messages);
+    }
+    else{
+        console.log("chat was not found");
+    }
+
+
+
+
+
+
+
+
+});
+
+app.post('/api/populateroom', async (req, res) => {
+
+    const db = client.db('moderndbfinalprojectUsers');
+    const usersCollection = db.collection('chats');
+
+    const {currUser} = req.body;
+
+
+
+   // console.log("In populate " + currUser);
+
+    const chats = await usersCollection.find(
+        { participants: { $in: [currUser] } },
+        { projection: { _id: 0,participants:1, messages: 1 } }
+    ).toArray();
+
+    chats.forEach(chat => {
+        console.log('Participants:', chat.participants);
+    })
+
+    if (chats && chats.length > 0) {
+        res.json(chats);
+    }
+    else{
+        console.log("chat was not found");
+    }
+
+
+
+
+
+
+
+
 });
 
 // Connect to the database and start the server

@@ -5,12 +5,8 @@ import ChatPage from './pages/ChatPage'
 import {useReadCypher, useWriteCypher} from "use-neo4j";
 import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/protectedRoute";
+import ChatFunctions from "./pages/chatFunctions";
 function App() {
-
-    const [loading, setLoading] = useState(true);
-    const[isAuthenticated, setIsAuthenticated] = useState(false)
-
-
 
     return (
         <Router>
