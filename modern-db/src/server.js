@@ -11,7 +11,8 @@ const port = 3001;
 app.use(express.json());
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+       // origin: 'http://localhost:3000',
+        origin: 'https://moderndb-2d1a4.web.app',
         credentials: true,
         allowedHeaders: [
             'Content-Type',
