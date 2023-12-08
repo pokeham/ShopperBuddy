@@ -65,9 +65,13 @@ function Chat(){
                     </Col>
                 </Row>
                 {clicked ? (
+                    <div style={{width:"100%"}}>
                         <ChatRoom other = {otherUser} sender = {sender}>
 
                         </ChatRoom>
+
+                    </div>
+
                 ):(
                     <Row className = {'bottom-row-chat'}>
                         {chatList.map((chat,index)=>(

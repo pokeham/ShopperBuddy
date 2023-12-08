@@ -4,9 +4,10 @@
     font-family: "Plus Jakarta Sans", sans-serif;
     height: 80vh;
     width: 100%;
-    background: rgba(47, 79, 79, 0.3);
+
 }
 .main-container-chat-room{
+
     width: 100%;
     height: inherit;
 }
@@ -16,8 +17,71 @@
     color: linen;
     text-align: left;
 }
+.input-form {
+    height: calc(30vh - 2vw);
 
+}
+.input-group-chat-room {
+
+    border-radius: 1vw;
+    border: 0.3vw solid rgba(47, 79, 79, 0.4);
+    height: inherit;
+    overflow: hidden;
+}
+.input-group-chat-room:hover{
+    border: 0.3vw solid rgba(47, 79, 79, 0.8);
+}
+.text-div {
+    height: calc(30vh - 2vw - 7vh);
+    margin-bottom: calc(2vw - 7vh + 2vh);
+}
+.form-control-chat-room:focus{
+    outline: none;
+}
+.form-control-chat-room{
+    color: darkslategrey;
+    font-weight: 700;
+    font-size: 18px;
+    border: none;
+    height: calc(30vh - 2vw);
+    width: calc(92vw - 6vw);
+    vertical-align: top; /* This will align the text to the top */
+    resize: none; /* Disable textarea resizing if needed */
+    overflow-y: auto;
+
+}
+.button-div{
+    height: calc(30vh - 2vw - 23vh);
+    border: 2px solid black;
+
+}
+.input-button-chat {
+    outline: none;
+    border: none    ;
+    bottom: calc(30vh - 2vw - 23vh);
+     /* Adjust as needed */
+    right: 3vw; /* Adjust as needed */
+    font-weight: 800;
+    background-color: lightgreen;
+    color: darkslategrey;
+    border-radius: 1vh 0 0 0;
+}
+.input-button-chat:hover{
+    background-color: green;
+    color: linen;
+}
+.text-entry-row{
+    height: 30vh;
+    background-color: linen;
+    padding: 1vw;
+}
+.text-entry-col{
+    background-color: rgba(1,1,1,0.1);
+    border-radius: 1vw;
+
+}
 .bottom-row-chat-room{
+    background: rgba(47, 79, 79, 0.3);
     overflow-y: scroll;
-    height: 80vh;
+    height: 50vh;
 }

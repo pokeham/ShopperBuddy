@@ -21,7 +21,7 @@
  .top-row-chat-box{
     width: inherit;
     height: 5vh;
-
+    background: rgba(1,1,1,0.2);
      color: darkslategray;
      font-size: 18px;
      font-weight: 800;
@@ -37,7 +37,6 @@
     height: inherit;
     background-color: lightsteelblue;
     border: 3px solid linen;
-
 }
 .main-container-chat-box-left{
     overflow: hidden;

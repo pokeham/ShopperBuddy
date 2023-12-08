@@ -2,12 +2,17 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Image} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col , Form} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../css/ChatRoom.css';
 import ChatBox from './ChatBox'
 const ChatRoom = ({sender,other})=>{
     const [messageList, setMessageList] = useState([]);
+    const [inputValue, setInputValue] = useState('');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        //use input value
+    };
     useEffect(() => {
         temp();
         const interval = setInterval(() => {
@@ -46,8 +51,27 @@ const ChatRoom = ({sender,other})=>{
                             <ChatBox sender = {msg.sender} data = {msg.content} actual = {sender}></ChatBox>
                         </Col>
                     ))}
-
-
+                </Row>
+                <Row className = {'text-entry-row'}>
+                    <Col xs = {12} className = {'text-entry-col'}>
+                        <Form onSubmit={handleSubmit} className="input-form">
+                            <div className="input-group-chat-room">
+                                <div className={'text-div'}>
+                                    <textarea
+                                        className="form-control-chat-room"
+                                        value={inputValue}
+                                        onChange={e => setInputValue(e.target.value)}
+                                        placeholder="Send a Chat :)"
+                                    ></textarea>
+                                </div>
+                                <div className={'d-flex justify-content-end'}>
+                                    <Button type="submit" className="input-button-chat">
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
+                        </Form>
+                    </Col>
                 </Row>
             </Container>
         </div>
