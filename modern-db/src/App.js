@@ -7,11 +7,6 @@ import HomePage from "./pages/HomePage";
 import ProtectedRoute from "./components/protectedRoute";
 function App() {
 
-    const [loading, setLoading] = useState(true);
-    const[isAuthenticated, setIsAuthenticated] = useState(false)
-
-
-
     return (
         <Router>
             <Routes>

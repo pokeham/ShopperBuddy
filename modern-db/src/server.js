@@ -91,7 +91,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
-        const token = jwt.sign({ userId: user._id }, 'yourSecretKey', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, username: username }, 'yourSecretKey', { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true, sameSite: true });
         res.json({ message: 'Login successful', user, token });
 

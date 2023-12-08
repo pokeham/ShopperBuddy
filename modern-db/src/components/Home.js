@@ -10,9 +10,31 @@ import { Link } from 'react-router-dom';
 import {browserSessionPersistence, setPersistence} from "firebase/auth";
 import '../css/Home.css';
 import neo4j from 'neo4j-driver';
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
+
+
 function Home(){
     const [similarCustomers, setSimilarCustomers] = useState([]);
     const [driver, setDriver] = useState(null);
+
+    function getCurrentUserId() {
+        const token = Cookies.get('token');
+        if (!token) return null;
+
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken.username);
+            return decodedToken.username;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return null;
+        }
+    }
+
+    function logout(){
+        Cookies.remove('token');
+    }
 
     useEffect(() => {
         const newDriver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', 'password'));
@@ -66,6 +88,7 @@ function Home(){
         }
     }, [driver]);
 
+
     return (
         <div>
             <h1>Similar Customers to Customer 'Cheyenne Newman'</h1>
@@ -76,6 +99,26 @@ function Home(){
                     </li>
                 ))}
             </ul>
+
+            <Button
+                className={'login-button'}
+                variant="outline-success"
+                type="submit"
+                onClick={getCurrentUserId}
+                style={{ marginRight: '10px' }}
+            >
+                getUser
+            </Button>
+
+            <Button
+                className={'login-button'}
+                variant="outline-success"
+                type="submit"
+                onClick={logout}
+                style={{ marginRight: '10px' }}
+            >
+                logout
+            </Button>
         </div>
     );
 };
