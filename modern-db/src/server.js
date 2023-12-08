@@ -158,7 +158,7 @@ app.post('/api/chat', async (req, res) => {
     if (existingChat) {
         await usersCollection.updateOne(
             {participants: {$all: participants}},
-            {$push: {messages: [message]}},
+            {$push: {messages: message}},
         );
     }
     else{

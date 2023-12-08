@@ -23,9 +23,7 @@
 
 }
 .bottom-row-chat{
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 80vh;
+height: 80vh;
+overflow-y: scroll;
 
 }

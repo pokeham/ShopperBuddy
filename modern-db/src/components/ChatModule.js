@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 import '../css/ChatModule.css';
 const ChatModule = ({loggedIn,Other,clickedFunction,otherFunction})=>{
     const tempFunction = (temp) =>{
-        clickedFunction();
         otherFunction(temp);
+        clickedFunction();
+
+        console.log(temp);
     }
     return(
         <div className={'main-div-chat-module'}>
@@ -16,8 +18,7 @@ const ChatModule = ({loggedIn,Other,clickedFunction,otherFunction})=>{
                 <Row className = {'row-chat-module'}>
                     <Col xs = {1} className = {'icon-chat-module'}>
                         <div className={'profile-chat-module'}>
-                            {/*insert appropriate icon text*/}
-                            CA
+                            {loggedIn[0]}
                         </div>
                     </Col>
                     <Col xs = {7} className = {'content-col-chat-module'}>
